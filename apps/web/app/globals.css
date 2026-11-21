@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* === AgriSathi AI — Global Styles === */
+
+@theme {
+  --color-brand-50: #f0fdf4;
+  --color-brand-100: #dcfce7;
+  --color-brand-200: #bbf7d0;
+  --color-brand-300: #86efac;
+  --color-brand-400: #4ade80;
+  --color-brand-500: #22c55e;
+  --color-brand-600: #16a34a;
+  --color-brand-700: #15803d;
+  --color-brand-800: #166534;
+  --color-brand-900: #14532d;
+
+  --color-earth-50: #fdf8f0;
+  --color-earth-100: #f5e6d3;
+  --color-earth-200: #e8c9a0;
+  --color-earth-300: #d4a574;
+  --color-earth-400: #c4844e;
+  --color-earth-500: #b8733d;
+
+  --color-sky-500: #0ea5e9;
+
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-poppins), system-ui, sans-serif;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+}
+
+/* Base layer */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 140 20% 10%;
+    --muted: 140 10% 96%;
+    --muted-foreground: 140 5% 45%;
+    --border: 140 10% 90%;
+    --ring: 142 71% 45%;
+    --primary: 142 71% 45%;
+    --primary-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+  }
+
+  .dark {
+    --background: 140 20% 5%;
+    --foreground: 140 10% 95%;
+    --muted: 140 15% 15%;
+    --muted-foreground: 140 5% 60%;
+    --border: 140 10% 20%;
+    --ring: 142 71% 45%;
+    --primary: 142 71% 45%;
+    --primary-foreground: 0 0% 100%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Utility classes */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gradient-brand {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+  }
+
+  .gradient-earth {
+    background: linear-gradient(135deg, #f5e6d3 0%, #e8c9a0 50%, #d4a574 100%);
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "agrisathi-ai",
+  "version": "0.1.0",
+  "private": true,
+  "description": "🌾 AgriSathi AI — AI-powered agricultural assistant for Indian farmers",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/web",
+    "dev:api": "cd apps/api && uvicorn app.main:app --reload --port 8000",
+    "dev:all": "concurrently \"npm run dev\" \"npm run dev:api\"",
+    "build": "npm run build --workspace=apps/web",
+    "lint": "npm run lint --workspace=apps/web",
+    "test": "npm run test --workspaces --if-present",
+    "test:api": "cd apps/api && python -m pytest",
+    "docker:up": "docker compose -f infra/docker-compose.yml up -d",
+    "docker:down": "docker compose -f infra/docker-compose.yml down",
+    "clean": "rimraf apps/web/.next apps/web/node_modules node_modules"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": ["agriculture", "ai", "india", "farmer", "crop-advisory"],
+  "license": "MIT"
+}
