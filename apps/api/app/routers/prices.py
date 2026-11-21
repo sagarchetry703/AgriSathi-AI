@@ -1,6 +1,4 @@
-"""
-Mandi price routes — real-time agricultural market prices.
-"""
+"""Market price routes. This module never labels unavailable data as live."""
 from fastapi import APIRouter
 from pydantic import BaseModel
 from typing import Optional
@@ -22,34 +20,22 @@ async def get_live_prices(
     state: Optional[str] = None,
     mandi: Optional[str] = None,
 ):
-    """
-    Get live mandi prices.
-
-    TODO: Integrate eNAM / Agmarknet API
-    """
     return {
-        "prices": [
-            {
-                "commodity": "Wheat (Gehun)",
-                "mandi": "Azadpur, Delhi",
-                "min_price": 2200,
-                "max_price": 2500,
-                "modal_price": 2350,
-                "unit": "quintal",
-                "date": "2026-11-21",
-            },
-            {
-                "commodity": "Rice (Dhaan)",
-                "mandi": "Azadpur, Delhi",
-                "min_price": 2800,
-                "max_price": 3200,
-                "modal_price": 3000,
-                "unit": "quintal",
-                "date": "2026-11-21",
-            },
-        ],
-        "message": "Live mandi price feed coming in Milestone 3.",
+        "status": "unavailable",
+        "source": None,
+        "prices": [],
+        "filters": {"commodity": commodity, "state": state, "mandi": mandi},
+        "message": "A verified live AGMARKNET/eNAM feed is not configured. No market prices are displayed.",
     }
+
+
+@router.get("/prices")
+async def get_prices_alias(
+    commodity: Optional[str] = None,
+    state: Optional[str] = None,
+    mandi: Optional[str] = None,
+):
+    return await get_live_prices(commodity=commodity, state=state, mandi=mandi)
 
 
 @router.get("/history")

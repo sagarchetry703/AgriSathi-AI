@@ -1,95 +1,94 @@
-# 🌾 AgriSathi AI
+# 🌾 AgriSathi AI (এগ্রিচাথী এআই)
+> **Smart Farming Assistant for Northeast India** · *GDG Build with AI Hackathon*
 
-> **AI-powered agricultural assistant for Indian farmers**
+---
 
-AgriSathi AI ("Farmer's Companion") empowers Indian smallholder farmers with AI-driven crop advice, plant disease diagnosis, weather forecasts, mandi price alerts, and multilingual voice support — accessible as a Progressive Web App that works offline.
+## 🌟 Overview
+**AgriSathi AI** is a mobile-first, farmer-centric agricultural technology web application tailored specifically for farmers in **Assam and Northeast India**. Inspired by the accessible user experience of CashewAI, it prioritizes real, working functionality:
+- 📸 **AgriVision AI (Crop Doctor)**: Multimodal crop disease and symptom detection using Google Gemini.
+- 🗣️ **AgriVoice AI**: Multilingual conversational farming assistant with voice input & spoken audio responses in **Assamese (অসমীয়া)**, **Hindi (हिन्दी)**, **Bengali (বাংলা)**, and **English**.
+- ⛅ **Weather Intelligence**: Real-time Open-Meteo forecast with transparent, rule-based agronomic advisories for 10+ Assam districts.
+- 🌊 **Flood-to-Farm Intelligence**: Official emergency preparedness guidelines from ASDMA and submergence-tolerant rice varieties (Swarna Sub-1, Bahadur Sub-1).
+- 🧪 **Soil Doctor**: Soil Health Card parameter extractor with manual verification and regional soil health tips.
+- 🧭 **Smart Crop Advisor**: Agro-climatic suitability engine based on Assam Agricultural University (AAU) package of practices.
+- 📶 **Offline-First PWA**: Progressive Web App with IndexedDB persistence, allowing farmers to review diagnoses and emergency guidelines even with zero internet.
 
-## ✨ Features
+---
 
-- 🤖 **AI Crop Advisor** — Chat with Gemini 2.0 Flash for personalized farming guidance
-- 📸 **Disease Detection** — Upload plant photos for instant AI diagnosis
-- 🌦️ **Weather Forecasting** — Hyper-local weather with actionable farming alerts
-- 💹 **Mandi Prices** — Real-time market prices from eNAM/Agmarknet
-- 🗣️ **Multilingual Voice** — Hindi + 10 regional languages with voice I/O
-- 👨‍🌾 **Community Q&A** — Connect with experts and fellow farmers
-- 📲 **PWA / Offline** — Works without internet in rural areas
+## 🏗️ Architecture & Technology Stack
+- **Frontend**: React 19, Vite, TypeScript, Tailwind CSS, React Router, Lucide React.
+- **Backend**: Node.js 22, Express.js, Zod validation, Multer for multipart uploads.
+- **AI / LLM**: Google Gemini API via official `@google/generative-ai` SDK (Gemini 2.0 Flash).
+- **Weather API**: Open-Meteo REST API (free, open data, Asia/Kolkata timezone).
+- **Offline Storage**: IndexedDB (`AgriSathiDB`) + LocalStorage + Service Worker (`sw.js`).
+- **Voice Interface**: Web Speech API (`SpeechRecognition` & `SpeechSynthesis`).
 
-## 🏗️ Tech Stack
+---
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Next.js 15, TypeScript, Tailwind CSS, shadcn/ui |
-| Backend | FastAPI (Python 3.14), SQLAlchemy 2 |
-| AI | Google Gemini 2.0 Flash, LangChain, pgvector |
-| Database | PostgreSQL 16, Redis 7 |
-| Auth | NextAuth.js v5 (Mobile OTP) |
-| Deployment | Vercel + Railway |
+## 📱 Navigation & Core Experience
+1. **Home**: District weather card, prominent crop scan & voice ask buttons, recent diagnoses, quick flood advisories.
+2. **Crop Scan**: Large camera capture button, crop selector, Gemini multimodal image diagnosis, structured remedies, and "Save to My Farm".
+3. **Ask AI**: Voice-enabled conversational agricultural advisory with audio replay and stop controls.
+4. **Weather**: 7-day forecast cards for Assam districts with transparent spray and irrigation rules.
+5. **My Farm**: Offline journal of past diagnoses with search, filtering, and emergency records.
+
+---
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### 1. Prerequisites
+- Node.js 20+ (Node.js 22+ recommended)
+- npm or pnpm
 
-- Node.js ≥ 20
-- Python ≥ 3.12
-- Docker & Docker Compose
-- PostgreSQL 16 (or use Docker)
-
-### Setup
-
+### 2. Environment Setup
+Copy `.env.example` to `.env`:
 ```bash
-# 1. Clone the repository
-git clone https://github.com/your-org/agrisathi-ai.git
-cd agrisathi-ai
-
-# 2. Copy environment variables
 cp .env.example .env
-# Edit .env with your API keys
-
-# 3. Start infrastructure (Postgres + Redis)
-npm run docker:up
-
-# 4. Install frontend dependencies
-npm install
-
-# 5. Install backend dependencies
-cd apps/api
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-cd ../..
-
-# 6. Run development servers
-npm run dev:all
+```
+Add your Google Gemini API Key:
+```env
+GEMINI_API_KEY=your_actual_gemini_api_key_here
+PORT=5000
+NODE_ENV=development
 ```
 
-### Available Scripts
+### 3. Running Locally
+```bash
+# Run both client and server:
+node scripts/dev.js
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start Next.js dev server (port 3000) |
-| `npm run dev:api` | Start FastAPI dev server (port 8000) |
-| `npm run dev:all` | Start both servers concurrently |
-| `npm run build` | Build Next.js for production |
-| `npm run lint` | Run ESLint |
-| `npm run test` | Run all tests |
-| `npm run docker:up` | Start Postgres + Redis containers |
-| `npm run docker:down` | Stop infrastructure containers |
-
-## 📂 Project Structure
-
-```
-AgriSathi-AI/
-├── apps/
-│   ├── web/          # Next.js 15 frontend (PWA)
-│   └── api/          # FastAPI Python backend
-├── packages/
-│   ├── shared/       # Shared TypeScript types
-│   └── config/       # Shared ESLint, TS configs
-├── infra/            # Docker Compose, Nginx
-├── docs/             # Documentation
-└── .github/          # CI/CD workflows
+# Or in separate terminals:
+npm run dev:server   # Starts Express backend on http://localhost:5000
+npm run dev          # Starts Vite frontend on http://localhost:5173
 ```
 
-## 📄 License
+### 4. Running Production Build
+```bash
+cd client
+npm run build
+cd ..
+node server/src/index.js
+```
+The complete application will be served at `http://localhost:5000/`.
 
-MIT © AgriSathi AI
+---
+
+## 🧪 Testing & Verification
+Run the backend and end-to-end integration test suites:
+```bash
+node server/tests/server.test.js
+node server/tests/e2e.test.js
+```
+
+---
+
+## 📄 Documentation
+- [PROJECT_PLAN.md](file:///d:/Projects/AgriSathi-AI/PROJECT_PLAN.md) — Full milestone breakdown & agronomic specs
+- [ARCHITECTURE.md](file:///d:/Projects/AgriSathi-AI/ARCHITECTURE.md) — System topology & design patterns
+- [API_DOCUMENTATION.md](file:///d:/Projects/AgriSathi-AI/API_DOCUMENTATION.md) — REST API endpoints & schemas
+- [DATABASE_DESIGN.md](file:///d:/Projects/AgriSathi-AI/DATABASE_DESIGN.md) — IndexedDB & LocalStorage schema
+- [TESTING.md](file:///d:/Projects/AgriSathi-AI/TESTING.md) — Test matrix and acceptance verification
+- [SECURITY.md](file:///d:/Projects/AgriSathi-AI/SECURITY.md) — Secrets, rate limiting, and AI safety guardrails
+- [SOURCE_REGISTRY.md](file:///d:/Projects/AgriSathi-AI/SOURCE_REGISTRY.md) — Official agricultural & meteorological sources
+- [KNOWN_LIMITATIONS.md](file:///d:/Projects/AgriSathi-AI/KNOWN_LIMITATIONS.md) — Ethical and technical limitations
+- [DEPLOYMENT.md](file:///d:/Projects/AgriSathi-AI/DEPLOYMENT.md) — Cloud Run & Firebase deployment instructions

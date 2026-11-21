@@ -1,11 +1,10 @@
 """
 AI Chat routes — Gemini-powered crop advisory chat.
 """
-from fastapi import APIRouter
-from fastapi.responses import StreamingResponse
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Optional
-import json
+from app.services.gemini import generate_text
 
 router = APIRouter()
 
@@ -25,50 +24,27 @@ class ChatResponse(BaseModel):
 
 
 @router.post("/message", response_model=ChatResponse)
+@router.post("/chat", response_model=ChatResponse)
 async def send_message(payload: ChatMessage):
-    """
-    Send a message to the AI crop advisor.
-    Returns AI-generated response.
-
-    TODO: Integrate with Gemini 2.0 Flash + LangChain RAG
-    """
-    # Mock response for initial scaffold
-    mock_response = (
-        f"🌾 Namaste! I received your message: '{payload.message}'. "
-        "I'm AgriSathi AI, your farming companion. "
-        "Once the Gemini API is connected, I'll provide personalized crop advice, "
-        "disease diagnosis, and agricultural guidance in your language. "
-        "Stay tuned!"
+    language_names = {"en": "English", "as": "Assamese", "hi": "Hindi", "bn": "Bengali"}
+    language = language_names.get(payload.language, "English")
+    prompt = (
+        "You are AgriSathi AI, an agricultural adviser for Assam and Northeast India. "
+        f"Answer only in {language}. Use simple farmer-friendly language. "
+        "Do not invent statistics or guarantee outcomes. "
+        "Include a brief warning to consult a local KVK or agricultural officer for severe issues.\n\n"
+        f"Farmer question: {payload.message}"
     )
-
+    try:
+        response = await generate_text(prompt)
+    except RuntimeError as exc:
+        if str(exc) == "GEMINI_NOT_CONFIGURED":
+            raise HTTPException(status_code=503, detail="Gemini API is not configured on the server.")
+        raise HTTPException(status_code=502, detail="The AI provider could not process the request.")
     return ChatResponse(
-        response=mock_response,
-        session_id=payload.session_id or "mock-session-001",
+        response=response,
+        session_id=payload.session_id or "session-local",
         sources=[],
-    )
-
-
-@router.post("/message/stream")
-async def send_message_stream(payload: ChatMessage):
-    """
-    Send a message and receive a streaming SSE response.
-
-    TODO: Implement with Gemini streaming API
-    """
-    async def event_generator():
-        words = "🌾 Hello! I am AgriSathi AI, your smart farming companion. I will help you with crop advice, disease detection, and market prices.".split()
-        for word in words:
-            chunk = json.dumps({"token": word + " "})
-            yield f"data: {chunk}\n\n"
-        yield "data: [DONE]\n\n"
-
-    return StreamingResponse(
-        event_generator(),
-        media_type="text/event-stream",
-        headers={
-            "Cache-Control": "no-cache",
-            "Connection": "keep-alive",
-        },
     )
 
 

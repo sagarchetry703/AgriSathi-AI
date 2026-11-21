@@ -1,140 +1,81 @@
-# 🌾 AgriSathi AI — Project Plan
-
-> **AgriSathi AI** is a full-stack AI-powered agricultural assistant platform designed for Indian farmers, delivering crop advice, disease diagnosis, weather integration, market price alerts, and multilingual support via web and voice.
-
----
-
-## ✅ Environment Audit Summary
-
-| Check | Result | Status |
-|---|---|---|
-| Node.js | v24.20.0 | ✅ Excellent (LTS+ ready) |
-| npm | v11.19.0 | ✅ Latest |
-| Git | v2.56.1 (Windows) | ✅ Installed |
-| pnpm | Not found | ⚠️ Will use npm |
-| Python | 3.14.2 | ✅ Available (for AI backend) |
-| PowerShell | 5.1 | ✅ Compatible |
-| OS | Windows 10 Home 26H2 | ✅ Compatible |
-| Git Repo | Initialized, no commits | 🟡 Fresh start — perfect |
-| Existing files | None (clean slate) | ✅ Ready |
-| Global tools | claude-code, opencode-ai | ✅ AI tooling present |
-
-### ⚠️ Setup Issues Identified
-
-1. **pnpm not installed** — We will use `npm` as the package manager throughout.
-2. **Git LFS configured** — Ensure large model files or media assets go through LFS or external storage (Cloudinary / S3), not raw Git.
-3. **No remote origin** — Add GitHub/GitLab remote before first push.
-4. **Windows `core.autocrlf=true`** — Acceptable, but add `.editorconfig` and `.gitattributes` to prevent line-ending drift across platforms.
-5. **WMI access denied** — Normal for sandboxed environments; no impact on development.
+# 🌱 AgriSathi AI — Project Plan
+> Smart Farming Assistant for Northeast India (GDG Build with AI)
 
 ---
 
-## 🎯 Product Vision
-
-**AgriSathi AI** ("Farmer's Companion AI") empowers Indian smallholder farmers with:
-- 🌱 AI crop advisor (disease, pest, fertilizer, irrigation)
-- 📸 Image-based plant disease diagnosis (Vision AI)
-- 🌦️ Hyper-local weather forecasting with actionable alerts
-- 💹 Real-time mandi price tracking (eNAM / Agmarknet integration)
-- 🗣️ Multilingual voice interface (Hindi + 10 regional languages)
-- 👨‍🌾 Community Q&A and expert connect
-- 📲 Progressive Web App (PWA) — works offline in low-connectivity areas
-
----
-
-## 🗂️ Milestone Roadmap
-
-### Milestone 1 — Foundation & Scaffolding *(Week 1–2)*
-- [ ] Monorepo setup (apps/web, apps/api, packages/shared)
-- [ ] Next.js 15 frontend with Tailwind CSS + shadcn/ui
-- [ ] FastAPI backend (Python 3.14) with async support
-- [ ] PostgreSQL + Prisma ORM schema
-- [ ] Redis cache layer
-- [ ] Auth system (NextAuth.js v5 — credentials + OTP via mobile)
-- [ ] CI/CD pipeline (GitHub Actions)
-- [ ] Environment config (.env structure, secrets management)
-- [ ] `.gitignore`, `.editorconfig`, `.gitattributes`
-- [ ] Initial Git commit + branch strategy
-
-### Milestone 2 — Core AI Features *(Week 3–5)*
-- [ ] Gemini 2.0 Flash integration (crop Q&A chat)
-- [ ] LangChain RAG pipeline with agricultural knowledge base
-- [ ] Plant disease detection (Vision AI / fine-tuned model)
-- [ ] Crop recommendation engine (ML model + rules engine)
-- [ ] AI response streaming (SSE / WebSocket)
-- [ ] Conversation history & session management
-
-### Milestone 3 — Data Integrations *(Week 5–7)*
-- [ ] OpenWeatherMap / IMD API integration
-- [ ] eNAM / Agmarknet mandi price API
-- [ ] Soil health data (ICAR API or fallback mock)
-- [ ] Government scheme scraper / data feed
-- [ ] Webhook-based price alert system
-
-### Milestone 4 — Multilingual & Voice *(Week 7–9)*
-- [ ] i18n framework (next-intl) — Hindi, Tamil, Telugu, Kannada, Bengali, Marathi, Gujarati, Punjabi, Odia, Malayalam + English
-- [ ] Google Cloud Speech-to-Text (voice input)
-- [ ] Google Cloud Text-to-Speech (voice responses)
-- [ ] Language auto-detection
-- [ ] RTL support where needed (Urdu)
-
-### Milestone 5 — PWA & Offline *(Week 9–10)*
-- [ ] Service Worker (Workbox)
-- [ ] Offline-first data caching strategy
-- [ ] Push notifications (mandi prices, weather alerts)
-- [ ] App manifest, install prompt
-- [ ] Lighthouse PWA score ≥ 90
-
-### Milestone 6 — Community & Expert Connect *(Week 10–12)*
-- [ ] Farmer Q&A forum
-- [ ] Expert verification system
-- [ ] Image upload (Cloudinary)
-- [ ] Moderation pipeline (AI + human)
-- [ ] Rating & reputation system
-
-### Milestone 7 — Production Hardening *(Week 12–14)*
-- [ ] End-to-end testing (Playwright)
-- [ ] Unit + integration tests (Vitest, pytest)
-- [ ] Performance optimization (Core Web Vitals)
-- [ ] Security audit (OWASP top 10)
-- [ ] Docker + docker-compose
-- [ ] Deployment to Vercel (frontend) + Railway/Render (API)
-- [ ] Monitoring (Sentry, Uptime Kuma)
+## 1. Executive Summary
+**AgriSathi AI** is a mobile-first, farmer-centric agricultural technology web application tailored specifically for farmers in **Assam and Northeast India**. Inspired by the simple, accessible UX ethos of CashewAI, it prioritizes real, working functionality:
+- Instant crop image analysis with Gemini Multimodal AI.
+- Multilingual voice-enabled farming assistant (Assamese, Hindi, Bengali, English).
+- Live local weather intelligence via Open-Meteo with transparent agronomic advisories.
+- Assam-specific Flood-to-Farm preparedness and emergency resources.
+- Soil report digestion (Soil Doctor) with field-level editable verification.
+- Regional Smart Crop Advisor backed by verified agro-ecological zone knowledge.
+- Offline-first PWA architecture with IndexedDB caching for low-connectivity rural belts.
 
 ---
 
-## 👥 Team Roles (Planned)
-
-| Role | Responsibility |
-|---|---|
-| Full-Stack Lead | Architecture, monorepo, CI/CD |
-| AI/ML Engineer | Gemini integration, RAG, vision models |
-| Frontend Dev | UI components, i18n, PWA |
-| Backend Dev | FastAPI, DB schema, integrations |
-| DevOps | Docker, deployment, monitoring |
-
----
-
-## 📅 Timeline Overview
-
-```
-Week 1-2:   Milestone 1 — Foundation
-Week 3-5:   Milestone 2 — Core AI
-Week 5-7:   Milestone 3 — Data
-Week 7-9:   Milestone 4 — Multilingual
-Week 9-10:  Milestone 5 — PWA
-Week 10-12: Milestone 6 — Community
-Week 12-14: Milestone 7 — Production
-```
+## 2. Target Crops of Northeast India
+1. **Rice (ধান)**: Sali (Winter paddy), Ahu (Autumn), Bao (Deepwater flood-tolerant).
+2. **Tea (চাহ)**: CTC & Orthodox plucking care, red spider mite, blister blight.
+3. **Mustard (সৰিয়হ)**: Major Rabi oilseed in Brahmaputra alluvial plains; aphid control.
+4. **Potato (আলু)**: Late blight management, cold storage considerations.
+5. **Tomato (বিলাহী)**: Bacterial wilt and leaf curl virus management.
+6. **Chilli (জলকীয়া)**: Anthracnose and thrips management, Bhut Jolokia special context.
+7. **Maize (মাকৈ)**: Fall armyworm monitoring, rainfed hill/plain suitability.
 
 ---
 
-## 🔑 Key Decisions Pending (Needs Approval Before M1)
+## 3. Milestones & Work Breakdown Structure
 
-1. **Package manager**: npm (confirmed, pnpm not installed)
-2. **Frontend framework**: Next.js 15 (App Router) ← *Recommended*
-3. **Backend language**: Python (FastAPI) or Node.js (Hono/Express)?
-4. **AI provider**: Google Gemini 2.0 Flash ← *Primary*
-5. **Database**: PostgreSQL + Prisma ← *Recommended*
-6. **Deployment target**: Vercel + Railway / full-Docker?
-7. **Mobile**: PWA only, or React Native later?
+### Stage 1: Architecture & Specifications (Complete)
+- Define full specification, system boundaries, and security policies.
+- Establish shared types and schemas across client and server.
+
+### Stage 2: Monorepo & Core Infrastructure (In Progress)
+- Express.js backend with TypeScript/ESM, Zod, Multer, Helmet, Rate Limiter.
+- Vite + React + TypeScript + Tailwind CSS mobile-first frontend.
+- Shared domain types.
+
+### Stage 3: UI/UX System & Main Navigation
+- Bottom navigation for mobile (Home, Crop Scan, Ask AI, Weather, My Farm).
+- Responsive desktop layout with collapsible sidebar.
+- Agricultural theme (Dark forest green `#14532d`, vibrant farm green `#16a34a`, clean white, amber alerts).
+- PWA manifests, icons, and service worker.
+
+### Stage 4: Backend REST APIs & Services
+- Express router setup with error handler, request logger, CORS, validation.
+- Endpoints: `/api/health`, `/api/vision/analyze`, `/api/assistant/chat`, `/api/weather/*`, `/api/flood/*`, `/api/soil/*`, `/api/crops/*`, `/api/market/*`, `/api/history/*`.
+
+### Stage 5: AgriVision AI (Crop Doctor)
+- Gemini multimodal crop image analysis.
+- Detailed visual symptom breakdown, risk assessment, organic/safe treatments, non-hallucinatory confidence indicators.
+- Unclear photo rejection and safety guardrails.
+
+### Stage 6: AgriVoice AI (Multilingual Assistant)
+- 4-language support: Assamese (অসমীয়া), Hindi (हिन्दी), Bengali (বাংলা), English.
+- Browser Web Speech STT and SpeechSynthesis TTS with fallback.
+- Contextual farming prompts with local KVK safety disclaimers.
+
+### Stage 7: Weather Intelligence
+- Open-Meteo live integration for 10 Assam districts (Guwahati, Jorhat, Dibrugarh, Silchar, Tezpur, etc.).
+- Transparent agronomic rules for spray, irrigation, and harvest advisories.
+
+### Stage 8: Assam Flood-to-Farm Module
+- ASDMA and NDMA Sachet integration links and status.
+- Pre-flood, during-flood, and post-flood rehabilitation checklists.
+- Assam Agricultural University (AAU) recommended submergence-tolerant rice varieties (Swarna Sub-1, Bahadur Sub-1).
+
+### Stage 9: Soil Doctor & Crop Advisor
+- Soil health card extractor (pH, N, P, K, Organic Carbon) with manual correction UI.
+- Agro-ecological crop suitability recommendations based on district, soil, season, and irrigation.
+
+### Stage 10: Market Intelligence & History
+- Transparent mandi pricing tracking (honest unavailable state when live feed is absent).
+- Local-first IndexedDB history with search, export, import, and delete.
+
+### Stage 11: My Farm Dashboard
+- Consolidated dashboard bringing together live weather, crop health, flood alerts, and recent diagnoses.
+
+### Stage 12: Testing, Security & Hardening
+- Unit and integration tests, Vite production build, security headers, rate limiting.

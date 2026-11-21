@@ -1,11 +1,6 @@
-import {
-  MessageSquare,
-  Camera,
-  CloudSun,
-  TrendingUp,
-  BookOpen,
-  Bell,
-} from "lucide-react";
+"use client";
+
+import { MessageSquare, Camera, CloudSun, TrendingUp, BookOpen, Bell, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 
 const quickActions = [
@@ -40,16 +35,14 @@ const quickActions = [
 ];
 
 export default function DashboardPage() {
+  const profile = typeof window === "undefined" ? null : JSON.parse(localStorage.getItem("agrisathi-profile") || "null");
+  const history = typeof window === "undefined" ? [] : JSON.parse(localStorage.getItem("agrisathi-history") || "[]");
   return (
     <div className="space-y-8">
       {/* Welcome Banner */}
       <div className="rounded-2xl gradient-brand p-6 text-white">
-        <h1 className="font-heading text-2xl font-bold">
-          नमस्ते! Good Morning 🌾
-        </h1>
-        <p className="mt-1 text-brand-100">
-          Your crops are looking great. Here&apos;s what you need to know today.
-        </p>
+        <h1 className="font-heading text-2xl font-bold">নমস্কাৰ! Namaste! 🌾</h1>
+        <p className="mt-1 text-brand-100">{profile?.district ? `Your farm in ${profile.district}` : "Set your district to personalise My Farm"}</p>
       </div>
 
       {/* Quick Actions */}
@@ -104,17 +97,19 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="rounded-xl border bg-white p-6 shadow-sm sm:col-span-2">
+        <div className="rounded-xl border bg-white p-6 shadow-sm">
           <div className="flex items-center gap-2 mb-4">
             <BookOpen className="h-5 w-5 text-brand-500" />
             <h3 className="font-heading font-semibold">Today&apos;s Tips</h3>
           </div>
-          <p className="text-sm text-gray-500">
-            AI-generated daily farming tips will be shown here based on your
-            crop, season, and location.
-          </p>
+          <p className="text-sm text-gray-500">{profile?.selected_crops?.length ? `Saved crops: ${profile.selected_crops.join(", ")}` : "Add your crops in My Farm."}</p>
+        </div>
+        <div className="rounded-xl border bg-white p-6 shadow-sm">
+          <div className="flex items-center gap-2 mb-4"><ShieldCheck className="h-5 w-5 text-brand-500"/><h3 className="font-heading font-semibold">Recent crop activity</h3></div>
+          <p className="text-sm text-gray-500">{history.length ? `${history.length} saved record(s). Open My Farm to review or delete.` : "No crop analyses saved yet."}</p>
         </div>
       </div>
     </div>
   );
 }
+

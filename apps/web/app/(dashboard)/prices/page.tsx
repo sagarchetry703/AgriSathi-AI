@@ -1,0 +1,3 @@
+"use client";
+import { useEffect,useState } from "react";
+export default function PricesPage(){const [data,setData]=useState<any>(null);useEffect(()=>{fetch("http://localhost:8000/api/market/prices").then(r=>r.json()).then(setData)},[]);return <div className="space-y-6"><header><p className="text-sm font-semibold text-[#2d7d46]">MARKET INTELLIGENCE</p><h1 className="mt-1 text-3xl font-bold text-[#153f27]">Mandi prices</h1></header><div className="rounded-3xl border border-[#dfe7dc] bg-white p-8 text-center"><div className="text-4xl">📊</div><h2 className="mt-3 text-xl font-bold text-[#153f27]">Live market data unavailable</h2><p className="mx-auto mt-2 max-w-lg text-sm text-[#718077]">{data?.message||"Checking verified market-data configuration..."}</p></div></div>}

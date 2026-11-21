@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="96" fill="#14532d"/>
+  <!-- Leaf icon -->
+  <path d="M256 80 C320 120, 400 200, 400 300 C400 380, 336 430, 256 430 C176 430, 112 380, 112 300 C112 200, 192 120, 256 80 Z" fill="#22c55e"/>
+  <!-- Stem -->
+  <path d="M256 140 L256 400" stroke="#14532d" stroke-width="16" stroke-linecap="round"/>
+  <path d="M256 230 Q315 200 336 175" stroke="#14532d" stroke-width="10" stroke-linecap="round"/>
+  <path d="M256 300 Q197 270 176 245" stroke="#14532d" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="256" cy="410" r="20" fill="#facc15"/>
+</svg>
